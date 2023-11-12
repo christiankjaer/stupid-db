@@ -3,16 +3,28 @@ use std::collections::{BTreeMap, HashMap};
 use crate::table_definition::TableDefinition;
 
 #[derive(Clone, Eq, Ord, PartialEq, PartialOrd)]
-enum ColumnData {
+pub enum ColumnData {
     StringData(String),
 }
 
-struct Row {
+pub struct Row {
     columns: HashMap<String, ColumnData>,
 }
 
+impl Row {
+    pub fn new(columns: Vec<(String, ColumnData)>) -> Self {
+        let mut cs: HashMap<String, ColumnData> = HashMap::new();
+
+        for (k, v) in columns {
+            cs.insert(k, v);
+        }
+
+        Row { columns: cs }
+    }
+}
+
 pub struct Table {
-    pub table_definition: TableDefinition,
+    table_definition: TableDefinition,
     data: BTreeMap<ColumnData, Row>,
 }
 

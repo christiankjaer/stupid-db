@@ -1,7 +1,10 @@
-mod query;
 mod database;
+mod query;
 mod table;
 mod table_definition;
+
+use table::ColumnData;
+use table::Row;
 
 use crate::database::Database;
 use crate::table_definition::Field;
@@ -22,7 +25,13 @@ async fn main() -> Result<(), ()> {
         }],
     };
 
+    let table_name = table_def.name.clone();
+
     db.new_table(table_def);
+    db.insert(
+        table_name,
+        Row::new(vec![("Foo".into(), ColumnData::StringData("Bar".into()))]),
+    );
 
     Ok(())
 }
