@@ -13,8 +13,3 @@ pub struct TableDefinition {
     pub primary_key: String,
     pub fields: Vec<Field>,
 }
-
-pub enum TableCommand {
-    CreateTable(TableDefinition),
-    DropTable(String),
-}

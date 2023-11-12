@@ -1,18 +1,16 @@
 mod query;
+mod database;
 mod table;
 mod table_definition;
 
-use std::collections::HashMap;
-
-use table::Table;
-
+use crate::database::Database;
 use crate::table_definition::Field;
 use crate::table_definition::TableDefinition;
 use crate::table_definition::Type;
 
 #[tokio::main]
 async fn main() -> Result<(), ()> {
-    let mut tables: HashMap<String, Table> = HashMap::new();
+    let mut db = Database::new();
 
     let table_def = TableDefinition {
         name: "Table".to_string(),
@@ -24,7 +22,7 @@ async fn main() -> Result<(), ()> {
         }],
     };
 
-    tables.insert("Table".to_string(), Table::new(table_def));
+    db.new_table(table_def);
 
     Ok(())
 }
